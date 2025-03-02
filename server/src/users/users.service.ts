@@ -1,4 +1,4 @@
-import {Injectable} from "@nestjs/common";
+import {HttpException, Injectable} from "@nestjs/common";
 import {InjectModel} from "@nestjs/sequelize";
 import {CreateUserDto} from "./dto/users.dto";
 import {User} from "./users.model";
@@ -13,6 +13,12 @@ export class UsersService {
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto);
         const role = await this.rolesService.getRoleByValue("USER")
+
+
+        if (!role) {
+            return new HttpException("role is null", 400)
+        }
+
 
         await user.$set("roles", [role.id])
         user.roles = [role]
