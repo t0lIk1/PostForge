@@ -9,18 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Role = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const user_roles_model_1 = require("../roles/user-roles.model");
-const roles_model_1 = require("../roles/roles.model");
-let User = class User extends sequelize_typescript_1.Model {
-    email;
-    password;
-    banned;
-    bannedReason;
-    roles;
+const users_model_1 = require("../users/users.model");
+const user_roles_model_1 = require("./user-roles.model");
+let Role = class Role extends sequelize_typescript_1.Model {
+    value;
+    description;
+    users;
 };
-exports.User = User;
+exports.Role = Role;
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -30,28 +28,20 @@ __decorate([
         unique: true,
     }),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Role.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: false, unique: true }),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: false }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.BOOLEAN, defaultValue: false }),
-    __metadata("design:type", Boolean)
-], User.prototype, "banned", void 0);
+], Role.prototype, "value", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: true }),
     __metadata("design:type", String)
-], User.prototype, "bannedReason", void 0);
+], Role.prototype, "description", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
+    (0, sequelize_typescript_1.BelongsToMany)(() => users_model_1.User, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)
-], User.prototype, "roles", void 0);
-exports.User = User = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: "users" })
-], User);
-//# sourceMappingURL=users.model.js.map
+], Role.prototype, "users", void 0);
+exports.Role = Role = __decorate([
+    (0, sequelize_typescript_1.Table)({ tableName: "roles" })
+], Role);
+//# sourceMappingURL=roles.model.js.map
