@@ -25,7 +25,7 @@ exports.AuthModule = AuthModule = __decorate([
                 signOptions: { expiresIn: "24h" },
             })
         ],
-        exports: [],
+        exports: [auth_service_1.AuthService, jwt_1.JwtModule],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

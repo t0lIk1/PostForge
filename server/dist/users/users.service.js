@@ -26,12 +26,13 @@ let UsersService = class UsersService {
     }
     async createUser(dto) {
         const user = await this.userRepository.create(dto);
-        const role = await this.rolesService.getRoleByValue("USER");
+        const role = await this.rolesService.getRoleByValue("ADMIN");
+        console.log(role.dataValues.id);
         if (!role) {
-            return new common_1.HttpException("role is null", 400);
+            throw new common_1.HttpException("Role is null", 400);
         }
-        await user.$set("roles", [role.id]);
-        user.roles = [role];
+        await user.$set("roles", [role.dataValues.id]);
+        user.dataValues.roles = [role];
         return user;
     }
     async getAllUsers() {

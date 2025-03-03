@@ -12,16 +12,14 @@ export class UsersService {
 
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto);
-        const role = await this.rolesService.getRoleByValue("USER")
-
-
+        const role = await this.rolesService.getRoleByValue("ADMIN")
         if (!role) {
-            return new HttpException("role is null", 400)
+            throw new HttpException("Role is null", 400)
         }
 
 
-        await user.$set("roles", [role.id])
-        user.roles = [role]
+        await user.$set("roles", [role.dataValues.id])
+        user.dataValues.roles = [role]
         return user;
     }
 

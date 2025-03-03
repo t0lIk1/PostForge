@@ -13,7 +13,7 @@ import {JwtModule} from "@nestjs/jwt";
             signOptions: {expiresIn: "24h"},
         })
     ],
-    exports: [],
+    exports: [AuthService, JwtModule],
 })
 export class AuthModule {
 }
