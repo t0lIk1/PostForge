@@ -17,15 +17,19 @@ export class User extends Model<User, UserCreationAttributes> {
         unique: true,
     })
     declare id: number;
+
     @Column({type: DataType.STRING, allowNull: false, unique: true})
-    email: string;
+    declare email: string;
+
     @Column({type: DataType.STRING, allowNull: false})
-    password: string;
+    declare password: string;
+
     @Column({type: DataType.BOOLEAN, defaultValue: false})
-    banned: boolean;
+    declare banned: boolean;
+
     @Column({type: DataType.STRING, allowNull: true})
-    bannedReason: string;
+    declare bannedReason: string;
 
     @BelongsToMany(() => Role, () => UserRoles)
-    roles: Role[];
+    declare roles: Role[];
 }

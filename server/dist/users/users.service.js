@@ -27,7 +27,6 @@ let UsersService = class UsersService {
     async createUser(dto) {
         const user = await this.userRepository.create(dto);
         const role = await this.rolesService.getRoleByValue("ADMIN");
-        console.log(role.dataValues.id);
         if (!role) {
             throw new common_1.HttpException("Role is null", 400);
         }
@@ -40,6 +39,29 @@ let UsersService = class UsersService {
     }
     async findByEmail(email) {
         return await this.userRepository.findOne({ where: { email }, include: { all: true } });
+    }
+    async addRole(dto) {
+        const user = await this.userRepository.findByPk(dto.userId);
+        const role = await this.rolesService.getRoleByValue(dto.value);
+        if (role && user) {
+            await user.$add('role', role.id);
+            return dto;
+        }
+        throw new common_1.HttpException("User or role not found", 401);
+    }
+    async ban(dto) {
+        const user = await this.userRepository.findByPk(Number(dto.userId));
+        if (!user) {
+            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        }
+        console.log('Before save:', user.banned, user.bannedReason);
+        user.banned = true;
+        user.bannedReason = dto.banReason;
+        await user.save();
+        console.log('After save:', user.banned, user.bannedReason);
+        const updatedUser = await this.userRepository.findByPk(Number(dto.userId));
+        console.log('Updated user from DB:', updatedUser);
+        return user;
     }
 };
 exports.UsersService = UsersService;

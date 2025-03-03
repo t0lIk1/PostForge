@@ -23,7 +23,6 @@ let AuthService = class AuthService {
     }
     async login(userDto) {
         const user = await this.validateUser(userDto);
-        console.log(user);
         return this.generateToken(user);
     }
     async registration(userDto) {
@@ -39,7 +38,6 @@ let AuthService = class AuthService {
         return await this.generateToken(user);
     }
     async generateToken(user) {
-        console.log(user);
         const payload = {
             email: user.dataValues.email,
             id: user.id,

@@ -18,6 +18,8 @@ const users_service_1 = require("./users.service");
 const users_dto_1 = require("./dto/users.dto");
 const auth_guard_1 = require("../auth/auth.guard");
 const roles_auth_decorator_1 = require("../auth/roles-auth.decorator");
+const add_role_dto_1 = require("./dto/add-role.dto");
+const ban_user_dto_1 = require("./dto/ban-user.dto");
 let UsersController = class UsersController {
     userService;
     constructor(userService) {
@@ -28,6 +30,12 @@ let UsersController = class UsersController {
     }
     getAll() {
         return this.userService.getAllUsers();
+    }
+    addRole(dto) {
+        return this.userService.addRole(dto);
+    }
+    banUser(dto) {
+        return this.userService.ban(dto);
     }
 };
 exports.UsersController = UsersController;
@@ -46,6 +54,24 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "getAll", null);
+__decorate([
+    (0, roles_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(auth_guard_1.RolesGuard),
+    (0, common_1.Post)("/role"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_role_dto_1.AddRoleDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addRole", null);
+__decorate([
+    (0, roles_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(auth_guard_1.RolesGuard),
+    (0, common_1.Post)("/ban"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ban_user_dto_1.BanUserDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "banUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)("users"),
     __metadata("design:paramtypes", [users_service_1.UsersService])
