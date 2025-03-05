@@ -13,6 +13,7 @@ exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const user_roles_model_1 = require("../roles/user-roles.model");
 const roles_model_1 = require("../roles/roles.model");
+const posts_model_1 = require("../post/posts.model");
 let User = class User extends sequelize_typescript_1.Model {
 };
 exports.User = User;
@@ -46,6 +47,10 @@ __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => posts_model_1.Post),
+    __metadata("design:type", Array)
+], User.prototype, "Post", void 0);
 exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: "users" })
 ], User);

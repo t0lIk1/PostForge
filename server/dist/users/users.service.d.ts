@@ -1,8 +1,8 @@
-import { CreateUserDto } from "./dto/users.dto";
 import { User } from "./users.model";
 import { RolesService } from "../roles/roles.service";
 import { AddRoleDto } from "./dto/add-role.dto";
 import { BanUserDto } from "./dto/ban-user.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
 export declare class UsersService {
     private userRepository;
     private rolesService;

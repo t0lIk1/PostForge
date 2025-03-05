@@ -1,7 +1,7 @@
 import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/users.dto";
 import { AddRoleDto } from "./dto/add-role.dto";
 import { BanUserDto } from "./dto/ban-user.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
 export declare class UsersController {
     private userService;
     constructor(userService: UsersService);

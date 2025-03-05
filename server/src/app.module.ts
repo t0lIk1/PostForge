@@ -8,7 +8,12 @@ import {User} from "./users/users.model";
 import {RolesModule} from './roles/roles.module';
 import {Role} from "./roles/roles.model";
 import {UserRoles} from "./roles/user-roles.model";
-import { AuthModule } from './auth/auth.module';
+import {AuthModule} from './auth/auth.module';
+import {PostsService} from "./post/posts.service";
+import {PostsController} from "./post/posts.controller";
+import {PostsModule} from "./post/posts.module";
+import {Post} from "./post/posts.model";
+
 
 @Module({
     controllers: [],
@@ -24,12 +29,13 @@ import { AuthModule } from './auth/auth.module';
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [Role, User, UserRoles],
+            models: [Role, User, UserRoles, Post],
             autoLoadModels: true,
         }),
         UsersModule,
         RolesModule,
         AuthModule,
+        PostsModule,
     ],
 })
 export class AppModule {

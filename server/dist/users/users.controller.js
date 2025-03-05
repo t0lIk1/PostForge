@@ -15,11 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const users_dto_1 = require("./dto/users.dto");
 const auth_guard_1 = require("../auth/auth.guard");
 const roles_auth_decorator_1 = require("../auth/roles-auth.decorator");
 const add_role_dto_1 = require("./dto/add-role.dto");
 const ban_user_dto_1 = require("./dto/ban-user.dto");
+const create_user_dto_1 = require("./dto/create-user.dto");
+const validation_pipes_1 = require("../pipes/validation.pipes");
 let UsersController = class UsersController {
     userService;
     constructor(userService) {
@@ -41,9 +42,10 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UsePipes)(validation_pipes_1.ValidationPipe),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [users_dto_1.CreateUserDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "create", null);
 __decorate([
