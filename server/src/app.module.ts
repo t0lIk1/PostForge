@@ -1,29 +1,25 @@
-import {UsersModule} from "./users/users.module";
-
-import {Module} from "@nestjs/common";
-import {SequelizeModule} from "@nestjs/sequelize";
-import {ConfigModule} from "@nestjs/config";
-import * as process from "node:process";
-import {User} from "./users/users.model";
-import {RolesModule} from './roles/roles.module';
-import {Role} from "./roles/roles.model";
-import {UserRoles} from "./roles/user-roles.model";
-import {AuthModule} from './auth/auth.module';
-import {PostsService} from "./post/posts.service";
-import {PostsController} from "./post/posts.controller";
-import {PostsModule} from "./post/posts.module";
+import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { ConfigModule } from '@nestjs/config';
+import * as process from 'node:process';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './post/posts.module';
+import { TagsModule } from './tags/tags.module';
+import { CategoryModule } from './category/category.module';
 import {Post} from "./post/posts.model";
-
+import {Role} from "./roles/roles.model";
+import {User} from "./users/users.model";
+import {UserRoles} from "./roles/user-roles.model";
 
 @Module({
-    controllers: [],
-    providers: [],
     imports: [
         ConfigModule.forRoot({
             envFilePath: `.${process.env.NODE_ENV}.env`,
         }),
         SequelizeModule.forRoot({
-            dialect: "postgres",
+            dialect: 'postgres',
             host: process.env.POSTGRES_HOST,
             port: Number(process.env.POSTGRES_PORT),
             username: process.env.POSTGRES_USERNAME,
@@ -36,7 +32,8 @@ import {Post} from "./post/posts.model";
         RolesModule,
         AuthModule,
         PostsModule,
+        TagsModule,
+        CategoryModule,
     ],
 })
-export class AppModule {
-}
+export class AppModule {}

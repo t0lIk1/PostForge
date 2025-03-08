@@ -27,11 +27,15 @@ export class PostsController {
         return this.postService.findByTitle(title)
     }
 
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
     @Delete("/delete/:id")
     delete(@Param('id') id: string) {
         return this.postService.deletePost(id)
     }
 
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
     @Put("/update/:id")
     update(@Param('id') id: string, @Body() dto: CreatePostDto) {
        return this.postService.updatePost(id, dto)
