@@ -65,6 +65,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getByTitle", null);
 __decorate([
+    (0, roles_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(auth_guard_1.RolesGuard),
     (0, common_1.Delete)("/delete/:id"),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -72,6 +74,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "delete", null);
 __decorate([
+    (0, roles_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(auth_guard_1.RolesGuard),
     (0, common_1.Put)("/update/:id"),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
