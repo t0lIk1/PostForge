@@ -7,6 +7,7 @@ class CreatePostDto {
     description;
     img;
     userId;
+    tags;
 }
 exports.CreatePostDto = CreatePostDto;
 //# sourceMappingURL=create-post.dto.js.map

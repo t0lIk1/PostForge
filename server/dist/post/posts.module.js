@@ -13,12 +13,14 @@ const posts_service_1 = require("./posts.service");
 const sequelize_1 = require("@nestjs/sequelize");
 const posts_model_1 = require("./posts.model");
 const auth_module_1 = require("../auth/auth.module");
+const tags_model_1 = require("../tags/tags.model");
+const post_tags_model_1 = require("./post-tags.model");
 let PostsModule = class PostsModule {
 };
 exports.PostsModule = PostsModule;
 exports.PostsModule = PostsModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([posts_model_1.Post]),
+        imports: [sequelize_1.SequelizeModule.forFeature([posts_model_1.Post, tags_model_1.Tags, post_tags_model_1.PostTags]),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule)],
         controllers: [posts_controller_1.PostsController],
         providers: [posts_service_1.PostsService],

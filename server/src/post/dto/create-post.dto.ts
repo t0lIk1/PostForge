@@ -4,4 +4,5 @@ export class CreatePostDto {
     readonly description: string;
     readonly img: string;
     userId: number;
+    readonly tags: number[];
 }

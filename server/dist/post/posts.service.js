@@ -16,16 +16,26 @@ exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const posts_model_1 = require("./posts.model");
+const tags_model_1 = require("../tags/tags.model");
 let PostsService = class PostsService {
     postRepository;
-    constructor(postRepository) {
+    tagsRepository;
+    constructor(postRepository, tagsRepository) {
         this.postRepository = postRepository;
+        this.tagsRepository = tagsRepository;
     }
     async createPost(dto) {
-        return await this.postRepository.create(dto);
+        const post = await this.postRepository.create(dto);
+        if (dto.tags) {
+            const tags = await this.tagsRepository.findAll({
+                where: { id: dto.tags },
+            });
+            await post.$set('tags', tags);
+        }
+        return post;
     }
     async findAll() {
-        return await this.postRepository.findAll();
+        return await this.postRepository.findAll({ include: { all: true } });
     }
     async findByTitle(title) {
         return await this.postRepository.findOne({ where: { title }, include: { all: true } });
@@ -35,14 +45,34 @@ let PostsService = class PostsService {
     }
     async updatePost(id, dto) {
         const post = await this.postRepository.findOne({ where: { id } });
-        post.set({ ...dto });
-        return await post.save();
+        if (!post) {
+            throw new Error('Post not found');
+        }
+        post.set({
+            title: dto.title,
+            status: dto.status,
+            description: dto.description,
+            img: dto.img,
+            userId: dto.userId,
+        });
+        await post.save();
+        if (dto.tags) {
+            const tags = await this.tagsRepository.findAll({
+                where: { id: dto.tags },
+            });
+            await post.$set('tags', tags);
+        }
+        return await this.postRepository.findOne({
+            where: { id },
+            include: { all: true },
+        });
     }
 };
 exports.PostsService = PostsService;
 exports.PostsService = PostsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(posts_model_1.Post)),
-    __metadata("design:paramtypes", [Object])
+    __param(1, (0, sequelize_1.InjectModel)(tags_model_1.Tags)),
+    __metadata("design:paramtypes", [Object, Object])
 ], PostsService);
 //# sourceMappingURL=posts.service.js.map

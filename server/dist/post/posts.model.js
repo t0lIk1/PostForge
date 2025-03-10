@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Post = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_model_1 = require("../users/users.model");
+const tags_model_1 = require("../tags/tags.model");
+const post_tags_model_1 = require("./post-tags.model");
 let Post = class Post extends sequelize_typescript_1.Model {
     status;
     title;
@@ -19,6 +21,7 @@ let Post = class Post extends sequelize_typescript_1.Model {
     img;
     userId;
     user;
+    tags;
 };
 exports.Post = Post;
 __decorate([
@@ -30,7 +33,7 @@ __decorate([
     __metadata("design:type", String)
 ], Post.prototype, "status", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: false, }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: false }),
     __metadata("design:type", String)
 ], Post.prototype, "title", void 0);
 __decorate([
@@ -43,16 +46,17 @@ __decorate([
 ], Post.prototype, "img", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.INTEGER,
-        allowNull: false,
-    }),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     __metadata("design:type", Number)
 ], Post.prototype, "userId", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User),
     __metadata("design:type", users_model_1.User)
 ], Post.prototype, "user", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => tags_model_1.Tags, () => post_tags_model_1.PostTags),
+    __metadata("design:type", Array)
+], Post.prototype, "tags", void 0);
 exports.Post = Post = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'posts' })
 ], Post);

@@ -7,5 +7,5 @@ export declare class PostsController {
     getAll(): Promise<import("./posts.model").Post[]>;
     getByTitle(title: string): Promise<import("./posts.model").Post | null>;
     delete(id: string): Promise<number>;
-    update(id: string, dto: CreatePostDto): Promise<import("./posts.model").Post>;
+    update(id: string, dto: CreatePostDto): Promise<import("./posts.model").Post | null>;
 }

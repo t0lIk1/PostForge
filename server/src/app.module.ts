@@ -13,6 +13,9 @@ import {PostsService} from "./post/posts.service";
 import {PostsController} from "./post/posts.controller";
 import {PostsModule} from "./post/posts.module";
 import {Post} from "./post/posts.model";
+import { TagsModule } from './tags/tags.module';
+import {Tags} from "./tags/tags.model";
+import {PostTags} from "./post/post-tags.model";
 
 
 @Module({
@@ -29,13 +32,14 @@ import {Post} from "./post/posts.model";
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [Role, User, UserRoles, Post],
+            models: [Role, User, UserRoles, Post, PostTags, Tags],
             autoLoadModels: true,
         }),
         UsersModule,
         RolesModule,
         AuthModule,
         PostsModule,
+        TagsModule,
     ],
 })
 export class AppModule {

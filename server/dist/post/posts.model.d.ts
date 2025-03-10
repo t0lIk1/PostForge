@@ -1,5 +1,6 @@
-import { Model } from "sequelize-typescript";
-import { User } from "../users/users.model";
+import { Model } from 'sequelize-typescript';
+import { User } from '../users/users.model';
+import { Tags } from '../tags/tags.model';
 interface PostCreationAttributes {
     title: string;
     status: string;
@@ -14,5 +15,6 @@ export declare class Post extends Model<Post, PostCreationAttributes> {
     img: string;
     userId: number;
     user: User;
+    tags: Tags[];
 }
 export {};

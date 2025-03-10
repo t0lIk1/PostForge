@@ -13,7 +13,7 @@ export class PostsController {
     @Roles("ADMIN")
     @UseGuards(RolesGuard)
     create(@Body() dto: CreatePostDto, @Request() req) {
-        dto.userId = req.user.id;
+        dto.userId = req.user.id
         return this.postService.createPost(dto);
     }
 
@@ -34,6 +34,6 @@ export class PostsController {
 
     @Put("/update/:id")
     update(@Param('id') id: string, @Body() dto: CreatePostDto) {
-       return this.postService.updatePost(id, dto)
+        return this.postService.updatePost(id, dto)
     }
 }
